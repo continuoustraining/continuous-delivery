@@ -1,0 +1,12 @@
+{
+    "name": "continuoustraining/continuous-delivery",
+    "authors": [
+        {
+            "name": "Fred",
+            "email": "frederic@continuousphp.com"
+        }
+    ],
+    "require": {
+        "phing/phing": "^2.12"
+    }
+}

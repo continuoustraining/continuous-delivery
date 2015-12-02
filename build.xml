@@ -1,0 +1,10 @@
+<project name="continuous-delivery" default="help" basedir=".">
+    <property file="./build.properties" />
+    
+    <target name="help" description="List available targets">
+        <exec executable="${project.basedir}/vendor/bin/phing"
+              passthru="true">
+            <arg value="-l"/>    
+        </exec>
+    </target>
+</project>
