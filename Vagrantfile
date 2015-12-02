@@ -25,12 +25,11 @@ a2ensite skeleton-zf
 service apache2 restart
 cd /var/www/zf
 curl -Ss https://getcomposer.org/installer | php
-php composer.phar install --no-progress
 echo "** [ZEND] Visit http://localhost:8085 in your browser for to view the application **"
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = 'chef/ubuntu-14.04'
+  config.vm.box = 'bento/ubuntu-14.04'
   config.vm.network "forwarded_port", guest: 80, host: 8085
   config.vm.hostname = "skeleton-zf.local"
   config.vm.synced_folder '.', '/var/www/zf'
