@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS changelog (
+CREATE TABLE IF NOT EXISTS pharmagest.changelog (
   `change_number` BIGINT NOT NULL,
   `delta_set` VARCHAR(10) NOT NULL,
   `start_dt` TIMESTAMP NOT NULL,

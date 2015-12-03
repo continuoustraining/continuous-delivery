@@ -1,0 +1,54 @@
+<project name="pharmagest" default="help" basedir=".">
+    <property file="./build.properties" />
+    <target name="help" description="List available target">
+
+
+        <echo msg="Création de la base : " />
+        <echo file="${project.basedir}/resources/data/create-db.sql">
+            CREATE DATABASE IF NOT EXISTS ${db.name};
+        </echo>
+        <trycatch property="error">
+            <try>
+                <pdosqlexec url="mysql:host=${db.host}" userid="${db.user}" password="${db.password}">
+                    <transaction src="${project.basedir}/resources/data/create-db.sql"></transaction>
+                </pdosqlexec>
+            </try>
+            <catch>
+                <echo message="${error}" />
+            </catch>
+        </trycatch>
+
+
+        <echo msg="Création de la table changelog : " />
+        <pdosqlexec url="mysql:host=${db.host}" userid="${db.user}" password="${db.password}">
+            <transaction src="${project.basedir}/resources/data/db.sql"></transaction>
+        </pdosqlexec>
+
+        <dbdeploy
+                url="mysql:host=${db.host};dbname=${db.name}"
+                userid="${db.user}"
+                password="${db.password}"
+                dir="${project.basedir}/resources/data/deltas"
+                outputfile="${project.basedir}/build/deploy.sql"
+                undooutputfile="${project.basedir}/build/undo.sql" />
+
+        <echo msg="Deploying changes" />
+        <if>
+            <equals arg1="${db.password}" arg2="" />
+            <then>
+                <exec
+                    command="/usr/bin/mysql -h${db.host} -u${db.user} ${db.name} &lt; deploy.sql"
+                    dir="${project.basedir}/build"
+                    checkreturn="true" />
+            </then>
+            <else>
+                <exec
+                    command="/usr/bin/mysql -h${db.host} -u${db.user} -p${db.password} ${db.name} &lt; deploy.sql"
+                    dir="${project.basedir}/build"
+                    checkreturn="true" />
+            </else>
+        </if>
+
+    </target>
+
+</project>
