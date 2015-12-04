@@ -10,7 +10,7 @@
     <import file="${project.basedir}/vendor/continuousphp/aws-sdk-phing/tasks.xml"/>
 
     <target name="setup-aws">
-        <aws-config region="${aws.region}" prof="${aws.profile}"/>
+        <aws-config region="${aws.region}" profile="${aws.profile}"/>
     </target>
 
     <target name="run-stack" depends="setup-aws">
