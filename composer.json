@@ -2,8 +2,8 @@
     "name": "continuoustraining/continuous-delivery",
     "authors": [
         {
-            "name": "Fred",
-            "email": "frederic@continuousphp.com"
+            "name": "Thibs",
+            "email": "thibault.lenestour@pharmagest.com"
         }
     ],
     "require": {
@@ -12,8 +12,8 @@
     },
     "require-dev": {
         "behat/behat": "^3.0",
-        "behat/mink-goutte-driver": "^1.2",
         "behat/mink-extension": "^2.1",
+        "behat/mink-goutte-driver": "^1.2",
         "phpunit/phpunit": "^4.8"
     },
     "autoload": {
