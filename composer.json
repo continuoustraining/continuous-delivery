@@ -1,5 +1,18 @@
 {
   "require-dev": {
-    "phing/phing": "2.*"
+    "phing/phing": "2.*",
+    "behat/behat": "^3.0",
+    "behat/mink-extension": "^2.1",
+    "behat/Mink-goutte-driver": "^1.2",
+    "phpunit/phpunit": "^4.8",
+    "symfony/var-dumper": "^3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Delivery\\": "src/"
+    }
+  },
+  "require": {
+    "doctrine/orm": "^2.5"
   }
 }
