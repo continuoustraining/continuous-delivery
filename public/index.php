@@ -3,4 +3,4 @@
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.
  */
-echo "Thibs is the best <3";
+echo "Welcome Thibs, Your are the best <3";
