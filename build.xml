@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <project name="continuous-delivery" default="help" basedir=".">
     <if>
         <available file="${project.basedir}/build.local.properties" />
@@ -78,4 +79,86 @@
         </if>
         <delete file="/tmp/dbdeploy_deploy.sql" />
     </target>
+=======
+<project name="continuous-delivery" default="help" basedir=".">
+    <if>
+        <available file="${project.basedir}/build.local.properties" />
+        <then>
+            <property file="${project.basedir}/build.local.properties" />
+        </then>
+    </if>
+    <property file="${project.basedir}/build.properties" />
+    
+    <import file="${project.basedir}/vendor/continuousphp/aws-sdk-phing/tasks.xml" />
+
+    <target name="setup-aws">
+        <aws-config region="${aws.region}" profile="${aws.profile}" />
+    </target>
+
+    <target name="run-stack" depends="setup-aws">
+        <aws-cf-runstack
+                name="training${cf.stackName}"
+                updateOnConflict="true"
+                capabilities="CAPABILITY_IAM"
+                templatePath="./infra/single-server.template">
+            <param name="KeyName" value="${cf.KeyName}" />
+            <param name="env" value="${cf.stackName}" />
+        </aws-cf-runstack>
+    </target>
+
+    <target name="help" description="List available targets">
+        <exec executable="${project.basedir}/vendor/bin/phing"
+              passthru="true">
+            <arg value="-l"/>    
+        </exec>
+    </target>
+
+    <target name="init-db" description="Create Database and Grants">
+        <echo file="${project.basedir}/resources/data/create-db.sql">
+            CREATE DATABASE IF NOT EXISTS ${db.name};
+        </echo>
+
+        <pdosqlexec url="mysql:host=${db.host}"
+                    userid="${db.user}"
+                    password="${db.password}">
+            <transaction src="${project.basedir}/resources/data/create-db.sql"/>
+        </pdosqlexec>
+
+        <delete file="${project.basedir}/resources/data/create-db.sql" quiet="true"/>
+    </target>
+
+    <target name="migrate"
+            depends="init-db"
+            description="Migrate db to the actual state">
+
+        <pdosqlexec url="mysql:host=${db.host};dbname=${db.name}"
+                    userid="${db.user}"
+                    password="${db.password}">
+            <transaction src="${project.basedir}/resources/data/db.sql"/>
+        </pdosqlexec>
+
+        <!-- generate the deployment scripts -->
+        <dbdeploy url="mysql:host=${db.host};dbname=${db.name}"
+                  userid="${db.user}"
+                  password="${db.password}"
+                  dir="${project.basedir}/resources/data/deltas"
+                  outputfile="/tmp/dbdeploy_deploy.sql"
+                  undooutputfile="/tmp/dbdeploy_undo.sql" />
+
+        <!-- execute the SQL -->
+        <if>
+            <equals arg1="${db.password}"
+                    arg2="" />
+            <then>
+                <exec command="mysql -u${db.user} -h${db.host} ${db.name} &lt; /tmp/dbdeploy_deploy.sql"
+                        />
+            </then>
+            <else>
+                <exec command="mysql -u${db.user} -h${db.host} -p${db.password} ${db.name} &lt; /tmp/dbdeploy_deploy.sql"
+                        />
+            </else>
+        </if>
+        <delete file="/tmp/dbdeploy_deploy.sql" />
+    </target>
+>>>>>>> 010a5f61b6defa66c270cf5232770a21e168a9e6
 </project>
