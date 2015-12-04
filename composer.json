@@ -1,10 +1,9 @@
-<<<<<<< HEAD
 {
     "name": "continuoustraining/continuous-delivery",
     "authors": [
         {
-            "name": "Fred",
-            "email": "frederic@continuousphp.com"
+            "name": "Rich",
+            "email": "richard.wentzeis@pharmagest.com"
         }
     ],
     "require": {
@@ -24,30 +23,3 @@
         }
     }
 }
-=======
-{
-    "name": "continuoustraining/continuous-delivery",
-    "authors": [
-        {
-            "name": "Fred",
-            "email": "frederic@continuousphp.com"
-        }
-    ],
-    "require": {
-        "phing/phing": "^2.12",
-        "doctrine/orm": "^2.5",
-        "continuousphp/aws-sdk-phing": "^0.1.5"
-    },
-    "require-dev": {
-        "behat/behat": "^3.0",
-        "behat/mink-goutte-driver": "^1.2",
-        "behat/mink-extension": "^2.1",
-        "phpunit/phpunit": "^4.8"
-    },
-    "autoload": {
-        "psr-4": {
-            "Delivery\\": "src/"
-        }
-    }
-}
->>>>>>> 010a5f61b6defa66c270cf5232770a21e168a9e6
