@@ -19,7 +19,7 @@
             updateOnConflict="true"
             capabilities="CAPABILITY_IAM"
             templatePath="./infra/single-server.template">
-            <param name="keyName" value="${cf.keyName}"/>
+            <param name="KeyName" value="${cf.KeyName}"/>
             <param name="env" value="${cf.stackName}"/>
         </aws-cf-runstack>
     </target>
