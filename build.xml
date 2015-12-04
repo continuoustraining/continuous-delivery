@@ -18,7 +18,7 @@
             name="training${cf.stackName}"
             updateOnConflict="true"
             capabilities="CAPABILITY_IAM"
-            templatePath="./infra/single-server-template">
+            templatePath="./infra/single-server.template">
             <param name="keyName" value="${cf.keyName}"/>
             <param name="env" value="${cf.stackName}"/>
         </aws-cf-runstack>
