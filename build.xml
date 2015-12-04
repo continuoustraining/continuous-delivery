@@ -18,10 +18,10 @@
                          updateOnConflict="true"
                          capabilities="CAPABILITY_IAM"
                          templatePath="./infra/single-server.template">
-                    <param name="KeyName"
-                         >
+            <param name="KeyName" value="${cf.KeyName}" />
+            <param name="env" value="${cf.filteredStackName}" />
 
-                         </aws-cf-runstack>
+         </aws-cf-runstack>
     </target>
     
     <import file="${project.basedir}/vendor/continuousphp/aws-sdk-phing/tasks.xml" />
