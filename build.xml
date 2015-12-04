@@ -17,7 +17,7 @@
     <target name="run-stack" depends="setup-aws">
         <aws-cf-runstack
             name="training{cf.stackName}"
-            updateOnConflicts="true"
+            updateOnConflict="true"
             capabilities="CAPABILITY_IAM"
             templatePath="./infra/single-server.template">
             <param name="KeyName" value="${cf.KeyName}" />
