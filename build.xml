@@ -20,7 +20,7 @@
                 capabilities="CAPABILITY_IAM"
                 templatePath="./infra/single-server.template" >
             <param name="KeyName" value="${cf.KeyName}" />
-            <param name="env" value="$cf.stackName" />
+            <param name="env" value="${cf.stackName}" />
         </aws-cf-runstack>
     </target>
     
