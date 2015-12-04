@@ -8,7 +8,8 @@
     ],
     "require": {
         "phing/phing": "^2.12",
-        "doctrine/orm": "^2.5"
+        "doctrine/orm": "^2.5",
+        "continuousphp/aws-sdk-phing": "^0.1.5"
     },
     "require-dev": {
         "behat/behat": "^3.0",
