@@ -6,7 +6,24 @@
         </then>
     </if>
     <property file="${project.basedir}/build.properties" />
-    
+
+    <import file="${project.basedir}/vendor/continousphp/aws-sdk-phing/tasks.xml" />
+
+    <target name="setup-aws">
+        <aws-config region="${aws.region}" profile="${aws.profile}" />
+    </target>
+
+    <target name="run-stack" depends="setup-aws">
+        <aws-cf-runstack
+                name="training${cf.stackName}"
+                updateOnConflicts="true"
+                capabilities="CAPABILITY_IAM"
+                templatePath="./infra/single-server.template">
+            <param name="KeyName" value="${cf.KeyName}"/>
+            <param name="env" value="${cf.stackName}" />
+        </aws-cf-runstack>
+    </target>
+
     <target name="help" description="List available targets">
         <exec executable="${project.basedir}/vendor/bin/phing"
               passthru="true">
