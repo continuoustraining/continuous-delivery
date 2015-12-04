@@ -12,7 +12,6 @@
     <target name="setup-aws">
         <aws-config region="${aws.region}" profile="${aws.profile}" />
     </target>
-
     <target name="run-stack" depends="setup-aws">
         <aws-cf-runstack
                 name="training${cf.stackName}"
