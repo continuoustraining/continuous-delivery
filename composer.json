@@ -1,4 +1,11 @@
 {
+    "name": "continuoustraining/continuous-delivery",
+    "authors": [
+        {
+            "name": "Thibs",
+            "email": "thibault.lenestour@pharmagest.com"
+        }
+    ],
     "require": {
         "phing/phing": "^2.12",
         "doctrine/orm": "^2.5"
@@ -11,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Delivery\\" : "src/"
+            "Delivery\\": "src/"
         }
     }
 }

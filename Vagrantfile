@@ -6,7 +6,7 @@ VAGRANTFILE_API_VERSION = '2'
 @script = <<SCRIPT
 DOCUMENT_ROOT_ZEND="/var/www/zf/public"
 apt-get update
-apt-get install -y apache2 git curl php5-cli php5 php5-intl libapache2-mod-php5
+apt-get install -y apache2 git curl php5-cli php5 php5-intl libapache2-mod-php5 mysql-server mysql-client
 echo "
 <VirtualHost *:80>
     ServerName skeleton-zf.local
@@ -29,7 +29,7 @@ echo "** [ZEND] Visit http://localhost:8085 in your browser for to view the appl
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = 'bento/ubuntu-14.04'
+  config.vm.box = 'ubuntu/trusty64'
   config.vm.network "forwarded_port", guest: 80, host: 8085
   config.vm.hostname = "skeleton-zf.local"
   config.vm.synced_folder '.', '/var/www/zf'
