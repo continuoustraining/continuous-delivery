@@ -1,0 +1,8 @@
+version: 0.O
+os: linux
+files:
+  - sources : /
+    destination: /var/www/html
+hooks:
+  BeforeInstall:
+    - location: script/cleanup.sh
