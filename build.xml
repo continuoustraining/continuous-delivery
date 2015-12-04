@@ -12,6 +12,7 @@
     <target name="setup-aws">
         <aws-config region="${aws.region}" profile="${aws.profile}" />
     </target>
+
     <target name="run-stack" depends="setup-aws">
         <aws-cf-runstack
                 name="training${cf.stackName}"
@@ -21,6 +22,19 @@
             <param name="KeyName" value="${cf.KeyName}" />
             <param name="env" value="${cf.stackName}" />
         </aws-cf-runstack>
+    </target>
+
+    <target name="setup-deployment-group">
+        <aws-deploy-deployment-group
+                name="${cf.filteredStackName}"
+                updateOnConflict="true"
+                deploymentConfigName="CodeDeployDefault.OneAtATime"
+
+                capabilities="CAPABILITY_IAM"
+                templatePath="./infra/single-server.template">
+            <param name="KeyName" value="${cf.KeyName}" />
+            <param name="env" value="${cf.filteredStackName}" />
+        </aws-deploy-deployment-group>
     </target>
 
     <target name="help" description="List available targets">
