@@ -23,6 +23,18 @@
             <param name="env" value="${cf.stackName}"/>
         </aws-cf-runstack>
     </target>
+
+    <target name="setup-deployment-group">
+        <aws-deploy-deployment-group
+                name="${cf.filteredStackName}"
+                updateOnConflict="true"
+                deploymentConfigName="CodeDeployDefault.OneAtATime"
+                serviceRole="${deploy.serviceRole}"
+                application="${deploy.applicationName}">
+            <ec2TagFilter key="env" value="${cf.filteredStackName}" />
+        </aws-deploy-deployment-group>
+    </target>
+
     
     <target name="help" description="List available targets">
         <exec executable="${project.basedir}/vendor/bin/phing"
