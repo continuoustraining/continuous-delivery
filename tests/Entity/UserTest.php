@@ -6,10 +6,17 @@
  * Time: 15:04
  */
 
-namespace Delivery\Entity;
-
+namespace DeliveryTest\Entity;
+use Delivery\Entity\User;
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
-
+    public function testSetNameActuallySetNameProperty()
+    {
+        $instance = new User();
+        $name = 'toto';
+        
+        $this->assertSame($instance, $instance->setName($name));
+        $this->assertAttributeSame($name, 'name', $instance);
+    }
 }

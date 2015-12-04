@@ -11,5 +11,17 @@ namespace Delivery\Entity;
 
 class User
 {
+    protected $name;
 
+    /**
+     * @param mixed $name
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        
+        return $this;
+    }
+    
 }
