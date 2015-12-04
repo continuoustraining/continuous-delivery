@@ -7,6 +7,18 @@
         }
     ],
     "require": {
-        "phing/phing": "^2.12"
+        "phing/phing": "^2.12",
+        "doctrine/orm": "^2.5"
+    },
+    "require-dev": {
+        "behat/behat": "^3.0",
+        "behat/mink-goutte-driver": "^1.2",
+        "behat/mink-extension": "^2.1",
+        "phpunit/phpunit": "^4.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Delivery\\": "src/"
+        }
     }
 }
