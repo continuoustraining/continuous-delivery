@@ -1,6 +1,6 @@
 @homepage
-Feature: Affichage de la homepage
-
-  Scenario:
-    Given I am on "/"
-    And I should see "thibs"
+Feature: Homepage default behavior
+  
+  Scenario: The title display
+    When I am on the homepage
+    Then I should see "Welcome"

@@ -1,73 +1,60 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: sbienvenu
- * Date: 03/12/2015
- * Time: 16:10
+ * User: fred
+ * Date: 03/12/15
+ * Time: 16:09
  */
 
 namespace Delivery\Service;
 
+use Delivery\Cache\CacheInterface;
+use Doctrine\ORM\EntityRepository;
 
 class User
 {
     /**
-     * @var \Delivery\Cache\CacheInterface
+     * @var EntityRepository
+     */
+    protected $repository;
+    
+    /**
+     * @var |Delivery\Cache\CacheInterface
      */
     protected $cache;
 
     /**
-     * @var \Doctrine\ORM\EntityRepository
+     * @param mixed $cache
+     * @return $this
      */
-    protected $repository;
-
-    /**
-     * @return \Delivery\Cache\CacheInterface
-     */
-    public function getCache()
-    {
-        return $this->cache;
-    }
-
-    /**
-     * @param \Delivery\Cache\CacheInterface $cache
-     * @return User
-     */
-    public function setCache($cache)
+    public function setCache(CacheInterface $cache)
     {
         $this->cache = $cache;
         return $this;
     }
-
+    
     /**
-     * @return \Doctrine\ORM\EntityRepository
-     */
-    public function getRepository()
-    {
-        return $this->repository;
-    }
-
-    /**
-     * @param \Doctrine\ORM\EntityRepository $repository
+     * @param mixed $repository
      * @return User
      */
-    public function setRepository($repository)
+    public function setRepository(EntityRepository $repository)
     {
         $this->repository = $repository;
         return $this;
     }
-
+    
     /**
      * @param $id
-     * @return null
+     * @return \Delivery\Entity\User
      */
     public function findUser($id)
     {
         if ($this->cache->has($id)) {
-            return $this->cache->get($id);
+            $entity = $this->cache->get($id);
         } else {
-            return $this->repository->find($id);
+            $entity = $this->repository->find($id);
         }
+        
+        return $entity;
     }
-
 }

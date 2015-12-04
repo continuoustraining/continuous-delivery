@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: sbienvenu
- * Date: 03/12/2015
- * Time: 15:17
+ * User: fred
+ * Date: 03/12/15
+ * Time: 15:29
  */
 
 namespace Delivery\Entity;
@@ -11,30 +11,17 @@ namespace Delivery\Entity;
 
 class User
 {
-    /**
-     * @var
-     */
-    private $nom;
-
+    protected $name;
 
     /**
-     * @return mixed
+     * @param mixed $name
+     * @return $this
      */
-    public function getNom()
+    public function setName($name)
     {
-        return $this->nom;
-    }
-
-    /**
-     * @param mixed $nom
-     * @return User
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
+        $this->name = $name;
+        
         return $this;
     }
-
-
-
+    
 }

@@ -1,71 +1,67 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: sbienvenu
- * Date: 03/12/2015
- * Time: 16:12
+ * User: fred
+ * Date: 03/12/15
+ * Time: 16:11
  */
 
-namespace Tests\Service;
+namespace DeliveryTest\Service;
 
-
-use Delivery\Entity\User;
-use Delivery\Service\User as Service;
-use Symfony\Component\VarDumper\VarDumper;
+use Delivery\Entity\User as UserEntity;
+use Delivery\Service\User as UserService;
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
     public function testFindUserReturnUserFromCacheIfExists()
     {
-        $user = new User();
-        $service = new Service();
+        $user = new UserEntity();
         $id = 123;
-
+        $service = new UserService();
         $cache = $this->getMock('Delivery\Cache\CacheInterface');
         $service->setCache($cache);
-
-        $cache->expects($this->once())
-            ->method('get')
-            ->with($id)
-            ->willReturn($user);
-
+        
         $cache->expects($this->once())
             ->method('has')
             ->with($id)
             ->willReturn(true);
-
+        
+        $cache->expects($this->once())
+            ->method('get')
+            ->with($id)
+            ->willReturn($user);
+        
         $this->assertSame($user, $service->findUser($id));
-
     }
-
-
+    
     public function testFindUserReturnUserFromDbIfNotExistsInCache()
     {
-        //fixtures
-        $user = new User();
-        $service = new Service();
+        // fixtures
+        $user = new UserEntity();
         $id = 123;
-        $repository = $this
-            ->getMockBuilder('Doctrine\ORM\EntityRepository')
+        $service = new UserService();
+        
+        // mocks
+        $cache = $this->getMock('Delivery\Cache\CacheInterface');
+        $repository = $this->getMockBuilder('Doctrine\ORM\EntityRepository')
             ->disableOriginalConstructor()
             ->getMock();
-        $cache = $this->getMock('Delivery\Cache\CacheInterface');
-
-        //dependencies injection
+        
+        // dependency injection
         $service->setCache($cache);
         $service->setRepository($repository);
-
-        //tests
+        
+        // tests
         $cache->expects($this->once())
             ->method('has')
             ->with($id)
             ->willReturn(false);
-
+        
         $repository->expects($this->once())
             ->method('find')
             ->with($id)
             ->willReturn($user);
-
+        
         $this->assertSame($user, $service->findUser($id));
     }
 }

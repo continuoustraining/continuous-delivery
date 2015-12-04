@@ -1,33 +1,22 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: sbienvenu
- * Date: 03/12/2015
- * Time: 15:08
+ * User: fred
+ * Date: 03/12/15
+ * Time: 15:04
  */
-namespace Tests\Entity;
 
+namespace DeliveryTest\Entity;
 use Delivery\Entity\User;
 
-/**
- * Class Test
- * @package Tests\Entity
- */
-class Test extends \PHPUnit_Framework_TestCase
+class UserTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testSetNameActuallySetNameProperty()
     {
         $instance = new User();
-        $name = 'Thibs';
-
-        //call method to test
-        $instance->setNom($instance);
-
-        //assert
-        $this->assertSame($instance, $instance->setNom($name));
-        $this->assertAttributeSame($name, 'nom', $instance);
-
+        $name = 'toto';
+        
+        $this->assertSame($instance, $instance->setName($name));
+        $this->assertAttributeSame($name, 'name', $instance);
     }
-
 }

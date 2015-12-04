@@ -1,36 +1,31 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sbienvenu
- * Date: 03/12/2015
- * Time: 16:29
- */
+
 namespace Delivery\Cache;
 
 /**
- * Interface CacheInterface
- * @package Delivery\Cache
+ * Created by PhpStorm.
+ * User: fred
+ * Date: 03/12/15
+ * Time: 16:32
  */
 interface CacheInterface
 {
     /**
-     * @param integer $key
+     * @param scalar $key
      * @return mixed
      */
     public function get($key);
 
-
     /**
-     * @param $key
+     * @param scalar $key
      * @param $value
      * @return mixed
      */
     public function set($key, $value);
 
     /**
-     * @param integer $key
+     * @param scalar $key
      * @return mixed
      */
     public function has($key);
-
 }
