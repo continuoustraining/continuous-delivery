@@ -7,6 +7,7 @@ pipeline {
 				echo 'Building ...'
 				sh 'cp /var/lib/jenkins/workspace/First_Pipeline_feature_1-env/composer.phar /var/lib/jenkins/workspace/First_Pipeline_feature_1-env/composer'
 				sh '/var/lib/jenkins/workspace/First_Pipeline_feature_1-env/composer update'
+				sh './vendor/bin/phing setup'
 			}
 		}
 		stage('Test') {
