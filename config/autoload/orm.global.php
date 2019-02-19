@@ -5,10 +5,11 @@ return [
             'orm_default' => [
                 'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
                 'params' => [
-                    'host' => 'localhost',
-                    'user' =>'root',
-                    'password' => '',
-                    'dbname' => 'skeleton'
+                    'host' => '@db.host@',
+		    'port' => '@db.port@',
+                    'user' =>'@db.username@',
+                    'password' => '@db.password@',
+                    'dbname' => '@db.dbname@'
                 ],
             ]
         ],

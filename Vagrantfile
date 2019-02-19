@@ -6,7 +6,7 @@ VAGRANTFILE_API_VERSION = '2'
 @script = <<SCRIPT
 DOCUMENT_ROOT_ZEND="/var/www/zf/public"
 apt-get update
-apt-get install -y apache2 git curl php5-cli php5 php5-intl
+apt-get install -y apache2 git curl php5-cli php5 php5-intl mysql-server mysql-client php5-mysql
 echo "
 <VirtualHost *:80>
     ServerName skeleton-zf.local
@@ -36,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision 'shell', inline: @script
 
   config.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "1024"]
+    vb.customize ["modifyvm", :id, "--memory", "4096"]
   end
 
 end

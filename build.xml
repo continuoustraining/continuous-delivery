@@ -17,9 +17,54 @@
         </exec>
     </target>
     
-    <target name="provision-stack"
+    <target name="provision-stack" depends="setup"
             description="Provision a stack on AWS" />
     
     <target name="setup"
             description="Setup external dependencies and migrate data"/>
-</project>
+
+    <target name="echoTSK"
+	    description="Test echo in target">
+	    
+	<echo msg="!!! coucou !!!" />
+	<echo msg="${db.host}:${db.port}/${db.dbname}" />
+    </target>
+
+    <property name="localPHP" value="config/autoload/local.php.dist" />
+    <property name="ciblePHP" value="config/autoload/local.php" />
+    <target name="copie_local_PHP" description="copy file ${localPHP} to ${ciblePHP}" >
+	<copy file="${localPHP}" tofile="${ciblePHP}" overwrite="true" />
+	<echo msg="Copie de ${localPHP} to ${ciblePHP} : OK" />
+    </target>
+
+    <target name="copie_fileSet" description="copy a set">
+	<copy todir="config/autoload" overwrite="true">
+		<fileset dir="config/autoload" id="myFileSet">
+			<include name="*.local.php.dist" />
+		</fileset>
+		<mapper type="glob" from="*.local.php.dist" to="*.local.php" />
+	</copy>
+	<pathconvert pathsep="${line.separator}" property="localFile" refid="myFileSet" />
+	<echo>${localFile}</echo>
+    </target>	
+
+    
+    <property name="GlobalORM" value="config/autoload/orm.global.php" />
+    <property name="LocalORM" value="config/autoload/orm.local.php" />
+    <target name="copie_ORMPHP" description="copy Global ORM to Local ORM">
+	<copy file="${GlobalORM}" tofile="${LocalORM}" overwrite="true" >
+		<filterchain>
+			<replacetokens>
+				<token key="db.host" value="${db.host}" />
+				<token key="db.port" value="${db.port}" />
+				<token key="db.username" value="${db.username}" />
+				<token key="db.password" value="${db.password}" />
+				<token key="db.dbname" value="${db.dbname}" />
+			</replacetokens>
+		</filterchain>
+	</copy>
+	<echo msg="Copie de ${GlobalORM} to ${LocalORM} : OK" />
+    </target>
+
+
+    </project>
