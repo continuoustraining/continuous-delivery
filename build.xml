@@ -20,7 +20,7 @@
     <target name="provision-stack" depends="setup"
             description="Provision a stack on AWS" />
     
-    <target name="setup" depends="echoTSK"
+    <target name="setup"
             description="Setup external dependencies and migrate data"/>
 
     <target name="echoTSK"
