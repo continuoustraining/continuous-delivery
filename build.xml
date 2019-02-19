@@ -20,6 +20,42 @@
     <target name="provision-stack"
             description="Provision a stack on AWS" />
     
-    <target name="setup"
+    <target name="setup" depends="echo"
             description="Setup external dependencies and migrate data"/>
+
+    <target name="echo" description="Liste fichiers disponible config">
+	<echo msg="Directory ./config" />
+	<echo>dbname=${db.dbname}</echo>
+    </target>
+    
+    <target name="copyphp">
+	<copy file="config/autoload/local.php.dist" tofile="config/autoload/local.php" overwrite="true"/>
+    </target>
+    
+    <target name="copy2">
+	<copy todir="config" overwrite="true">
+            <fileset dir="config">
+                <include name="**/*.php.dist"/>
+            </fileset>
+	<mapper type="glob" from="*.php.dist" to="*.php"/>
+    </copy>
+    </target>
+    
+    <target name="replace">
+	<copy todir="config" overwrite="true">
+            <fileset dir="config">
+                <include name="**/*.php.dist"/>
+            </fileset>
+	<mapper type="glob" from="*.php.dist" to="*.php"/>
+	<filterchain>
+        	<replacetokens begintoken="@" endtoken="@">
+			<token key="db.host" value="${db.host}" />
+			<token key="db.dbname" value="${db.dbname}" />
+        	</replacetokens>
+	</filterchain>
+    </copy>
+    </target>
+
+
+
 </project>
