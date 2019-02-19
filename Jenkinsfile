@@ -5,8 +5,9 @@ pipeline {
 		stage('Build') {
 			steps {
 				echo 'Building ...'
-				sh 'cp /var/lib/jenkins/workspace/First_Pipeline_feature_1-env/composer.phar /var/lib/jenkins/workspace/First_Pipeline_feature_1-env/composer'
-				sh '/var/lib/jenkins/workspace/First_Pipeline_feature_1-env/composer install'
+				sh 'php --version'
+				sh 'cp /var/lib/jenkins/workspace/First_Pipeline_feature_1-env/composer.phar /usr/local/bin/composer'
+				sh 'composer install'
 				sh './vendor/bin/phing setup'
 			}
 		}
