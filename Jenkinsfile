@@ -10,7 +10,7 @@ pipeline {
 				sh 'php composer-setup.php'
 				sh 'php -r "unlink(\'composer-setup.php\');"'
 				sh 'cp /var/lib/jenkins/workspace/First_Pipeline_feature_1-env/composer.phar /var/lib/jenkins/workspace/First_Pipeline_feature_1-env/composer'
-				sh 'composer update'
+				sh '/var/lib/jenkins/workspace/First_Pipeline_feature_1-env/composer update'
 			}
 		}
 		stage('Test') {
